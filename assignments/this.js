@@ -13,9 +13,17 @@
 
 // code example for Window Binding
 
+function sayName(name) {
+  console.log(this.name);
+  return name;
+}
+sayName("D'Artagnan");
+
 // Principle 2
 
 // code example for Implicit Binding
+
+
 
 // Principle 3
 
@@ -24,3 +32,4 @@
 // Principle 4
 
 // code example for Explicit Binding
+

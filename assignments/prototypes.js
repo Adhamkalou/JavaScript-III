@@ -16,12 +16,45 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 
+//
+
+function GameObject(powerRangers) {
+  this.createdAt = powerRangers.createdAt;
+  this.dimensions = powerRangers.dimensions;
+
+}
+GameObject.prototype.destroy = function () {
+  return `${this.tag} was removed from the game.`
+}
+
+
+//
+
 /*
   === CharacterStats ===
   * healthPoints
   * takeDamage() // prototype method -> returns the string '<object name> took damage.'
   * should inherit destroy() from GameObject's prototype
 */
+
+
+//
+
+function CharacterStats(powerRangers) {
+  GameObject.call(this, powerRangers);
+  this.hP = powerRangers.hP;
+  this.tag = powerRangers.tag;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.tag} took damage`
+}
+
+
+//
+
 
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -33,15 +66,46 @@
   * should inherit takeDamage() from CharacterStats
 */
  
+
+
+//
+
+function Humanoid(powerRangers) {
+  CharacterStats.call(this, powerRangers);
+  this.guild = powerRangers.guild;
+  this.weapons = powerRangers.weapons;
+  this.language = powerRangers.language;
+
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+Humanoid.prototype.greet = function () {
+  return `${this.tag} offers a greeting in ${this.language}.`
+}
+
+
+//
+
+
+
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
   * Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+
+
+//
+
+
+//
+
+
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -49,9 +113,9 @@
       width: 1,
       height: 1,
     },
-    healthPoints: 5,
-    name: 'Bruce',
-    team: 'Mage Guild',
+    hP: 5,
+    tag: 'Bruce',
+    guild: 'Mage Guild',
     weapons: [
       'Staff of Shamalama',
     ],
@@ -65,9 +129,9 @@
       width: 2,
       height: 2,
     },
-    healthPoints: 15,
-    name: 'Sir Mustachio',
-    team: 'The Round Table',
+    hP: 15,
+    tag: 'Sir Mustachio',
+    guild: 'The Round Table',
     weapons: [
       'Giant Sword',
       'Shield',
@@ -75,6 +139,7 @@
     language: 'Common Tongue',
   });
 
+  
   const archer = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -82,9 +147,9 @@
       width: 2,
       height: 4,
     },
-    healthPoints: 10,
-    name: 'Lilith',
-    team: 'Forest Kingdom',
+    hP: 10,
+    tag: 'Lilith',
+    guild: 'Forest Kingdom',
     weapons: [
       'Bow',
       'Dagger',
@@ -94,15 +159,15 @@
 
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-  console.log(swordsman.healthPoints); // 15
-  console.log(mage.name); // Bruce
-  console.log(swordsman.team); // The Round Table
+  console.log(swordsman.hP); // 15
+  console.log(mage.tag); // Bruce
+  console.log(swordsman.guild); // The Round Table
   console.log(mage.weapons); // Staff of Shamalama
   console.log(archer.language); // Elvish
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
